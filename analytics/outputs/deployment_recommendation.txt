@@ -1,0 +1,6 @@
+1. Deploy the Logistic Regression pipeline as the primary survival-prediction model.
+   It is the strongest base model on every ranking metric: F1=0.7559, ROC-AUC=0.8584, and the highest precision=0.8136, while being simple and fast to score.
+2. The tuned Random Forest does not improve on the base Random Forest and does not beat Logistic Regression (tuned F1=0.7538, ROC-AUC=0.8417, CV F1=0.7549, OOB=0.8200), so its added complexity and cost are not justified by these results.
+3. The depth-limited Decision Tree underperforms (F1=0.6880, recall=0.6324), so do not ship it as primary.
+4. If the operational priority is maximising detection of survivors (recall), the SMOTE-on-train-only variant lifts recall to 0.7500 (from 0.7059) with the best ROC-AUC=0.8620, at a small precision cost (0.7286); otherwise use the default Logistic Regression pipeline.
+5. The dataset is small (178 test rows), so these metrics should be re-validated on a larger sample before production.
