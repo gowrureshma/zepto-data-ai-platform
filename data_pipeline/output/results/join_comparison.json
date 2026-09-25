@@ -1,0 +1,16 @@
+{
+  "sql_join_rows": 100,
+  "pandas_merge_rows": 100,
+  "columns": [
+    "book_id",
+    "title",
+    "price_gbp",
+    "price_inr",
+    "rating",
+    "in_stock",
+    "category_id",
+    "category_name"
+  ],
+  "match": true,
+  "difference": "SQL JOIN and pandas.merge results are equal (row-for-row)."
+}
