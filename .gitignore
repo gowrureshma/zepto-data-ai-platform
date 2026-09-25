@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Module 1 - Data Pipeline generated outputs (raw data, database, results)
+data_pipeline/output/
+
+# Module 2 - EDA / Classification generated outputs (charts, metric CSVs)
+analytics/outputs/
+
+# OS
+.DS_Store
+Thumbs.db
