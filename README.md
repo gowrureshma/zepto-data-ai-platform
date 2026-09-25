@@ -231,13 +231,17 @@ git commit -m "..."
 git push
 ```
 
-The intended lifecycle is: create `main` from a stable base, do all work on
-`feature/zepto-capstone`, then open a pull request and **merge into `main`** once review
-passes. As of this audit the feature branch is complete and the working tree is clean; the
-final merge into `main` has **not** been performed yet.
+The development work was completed on `feature/zepto-capstone` and then merged
+into `main` using a `--no-ff` merge. The final merge commit is
+`bf6cdbd` (`Merge feature/zepto-capstone`). The `feature/zepto-capstone`
+branch is preserved, and `main` contains the complete final project.
 
-> NOTE (audit finding): at the time of this audit only `feature/zepto-capstone` existed;
-> a `main` branch had not yet been created. The required fixes create `main` from the
-> current HEAD and leave the final merge to a later PR step.
-#   z e p t o - d a t a - a i - p l a t f o r m  
+Final Git state:
+- `main` contains the complete project and final merge.
+- `feature/zepto-capstone` is preserved.
+- The working tree is clean.
+- The final Module 1 verification outputs are committed under
+  `data_pipeline/output/results/`.
+#   z e p t o - d a t a - a i - p l a t f o r m 
+ 
  
