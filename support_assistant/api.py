@@ -12,7 +12,7 @@ app = FastAPI(
 
 
 class AskRequest(BaseModel):
-    question: str
+    query: str
 
 
 @app.get("/health")
@@ -22,4 +22,4 @@ def health():
 
 @app.post("/ask", response_model=AnswerResponse)
 def ask(req: AskRequest):
-    return run(req.question)
+    return run(req.query)

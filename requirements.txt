@@ -1,0 +1,27 @@
+# Repository-level dependencies for the Zepto Data & AI Platform.
+# This is the union of all module dependencies. Per-module files also exist:
+#   data_pipeline/requirements.txt   (Module 1)
+#   analytics/requirements.txt       (Module 2: notebooks)
+#   support_assistant/requirements.txt (Module 3)
+#
+# Module 1 (Data Pipeline)
+requests>=2.31
+beautifulsoup4>=4.12
+pandas>=2.1
+# Module 2 (Analytics / notebooks)
+numpy>=1.26
+matplotlib>=3.8
+seaborn>=0.12
+scikit-learn>=1.4
+imbalanced-learn>=0.11
+joblib>=1.3
+# Module 3 (Support Assistant)
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2
+langgraph>=1.0
+chromadb>=1.0
+sentence-transformers>=3.0
+httpx>=0.27
+# Test runner (used by Module 3)
+pytest>=8

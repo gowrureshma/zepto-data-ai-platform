@@ -12,7 +12,7 @@ def test_health():
 
 
 def test_ask_policy_uses_retrieval():
-    r = client.post("/ask", json={"question": "How long do I have to return an item?"})
+    r = client.post("/ask", json={"query": "How long do I have to return an item?"})
     assert r.status_code == 200
     body = r.json()
     assert set(body) >= {"answer", "sources", "confidence"}
@@ -22,7 +22,7 @@ def test_ask_policy_uses_retrieval():
 
 
 def test_ask_direct_question():
-    r = client.post("/ask", json={"question": "Tell me a joke."})
+    r = client.post("/ask", json={"query": "Tell me a joke."})
     assert r.status_code == 200
     body = r.json()
     assert set(body) >= {"answer", "sources", "confidence"}

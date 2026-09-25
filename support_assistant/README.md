@@ -91,23 +91,52 @@ API because the mock path is the default.
 
 ## API usage
 
+`MOCK_LLM=1` is the default, so the API works offline (no paid/external LLM). Questions
+are sent as `{"query": "..."}`.
+
+### Example 1 — policy/retrieval question
+
 ```
 POST /ask
 Content-Type: application/json
 
-{"question": "How do I report a damaged item?"}
+{"query": "How long do I have to return an item?"}
 
 Response (200):
 {
-  "answer": "...",
-  "sources": ["doc_06.txt", ...],
-  "confidence": 0.75
+  "answer": "[MOCK_LLM response - generated offline from the top retrieved policy chunk; no paid LLM was used] Per Zepto policy doc_02.txt (chunk doc_02_p0): ...",
+  "sources": ["doc_02.txt", "doc_06.txt", "doc_05.txt"],
+  "confidence": 0.677
 }
 ```
 
-- Policy questions (e.g. delivery, returns, cancellation, damaged items, gift cards)
-  are routed to the **retrieval path** and answered from retrieved policy text.
-- Non-policy questions are routed to the **direct-answer path** and get a fixed policy-scope message.
+Policy questions (delivery, returns, cancellation, damaged items, gift cards, etc.) are
+routed to the **retrieval path** and answered from the top-3 retrieved policy chunks.
+
+### Example 2 — direct / non-policy question
+
+```
+POST /ask
+Content-Type: application/json
+
+{"query": "Tell me a joke."}
+
+Response (200):
+{
+  "answer": "I am Zepto's Support Assistant and can only help with questions about Zepto's policies: ... Please ask a policy-related question.",
+  "sources": [],
+  "confidence": 0.4
+}
+```
+
+Non-policy questions are routed to the **direct-answer path**, which returns a fixed
+policy-scope message.
+
+In a shell:
+
+```bash
+curl -X POST http://localhost:7860/ask -H 'Content-Type: application/json' -d '{"query":"Is delivery free?"}'
+```
 
 ## Running locally
 
@@ -134,7 +163,7 @@ Pydantic validation, and `/ask` for both paths.
 ```bash
 docker build -t zepto-support-assistant support_assistant
 docker run -p 7860:7860 -e MOCK_LLM=1 zepto-support-assistant
-# then: curl -X POST http://localhost:7860/ask -H 'Content-Type: application/json' -d '{"question":"Is delivery free?"}'
+# then: curl -X POST http://localhost:7860/ask -H 'Content-Type: application/json' -d '{"query":"Is delivery free?"}'
 ```
 
 The `Dockerfile` exposes port `7860`.
